@@ -673,7 +673,7 @@
 				.find('th:eq(1)')
 				.text(year)
 				.end()
-				.find('span').removeClass('active');
+				.find('span.month').removeClass('active');
 			if (currentYear == year) {
 				months.eq(this.date.getUTCMonth()).addClass('active');
 			}

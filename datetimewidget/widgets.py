@@ -13,7 +13,7 @@ from django.utils.six import string_types
 try:
     from django.forms.widgets import to_current_timezone
 except ImportError:
-    to_current_timezone = lambda obj: obj # passthrough, no tz support
+    to_current_timezone = lambda obj: obj  # passthrough, no tz support
 
 
 # This should be updated as more .po files are added to the datetime picker javascript code
@@ -22,7 +22,7 @@ supported_languages = set([
     'bg',
     'ca', 'cs',
     'da', 'de',
-    'ee', 'el', 'es','eu',
+    'ee', 'el', 'es', 'eu',
     'fi', 'fr',
     'he', 'hr', 'hu',
     'id', 'is', 'it',
@@ -123,7 +123,7 @@ BOOTSTRAP_INPUT_TEMPLATE = {
            });
        </script>
        """
-       }
+}
 
 CLEAR_BTN_TEMPLATE = {2: """<span class="add-on"><i class="icon-remove"></i></span>""",
                       3: """<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>"""}
@@ -165,7 +165,7 @@ def quote(key, value):
         return "'%s'" % value
 
     if key in quoted_bool_options and isinstance(value, bool):
-        return {True:'true',False:'false'}[value]
+        return {True: 'true', False: 'false'}[value]
 
     return value
 
@@ -177,7 +177,7 @@ class PickerWidgetMixin(object):
 
     def __init__(self, attrs=None, options=None, usel10n=None, bootstrap_version=None):
 
-        if bootstrap_version in [2,3]:
+        if bootstrap_version in [2, 3]:
             self.bootstrap_version = bootstrap_version
         else:
             # default 2 to mantain support to old implemetation of django-datetime-widget
@@ -227,7 +227,7 @@ class PickerWidgetMixin(object):
         final_attrs = self.build_attrs(attrs)
         rendered_widget = super(PickerWidgetMixin, self).render(name, value, final_attrs)
 
-        #if not set, autoclose have to be true.
+        # If not set, autoclose have to be true.
         self.options.setdefault('autoclose', True)
 
         # Build javascript options out of python dictionary
@@ -243,13 +243,13 @@ class PickerWidgetMixin(object):
 
         return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
-                % dict(
-                    id=id,
-                    rendered_widget=rendered_widget,
-                    clear_button=CLEAR_BTN_TEMPLATE[self.bootstrap_version] if clearBtn else "",
-                    glyphicon=self.glyphicon,
-                    options=js_options
-                    )
+            % dict(
+                id=id,
+                rendered_widget=rendered_widget,
+                clear_button=CLEAR_BTN_TEMPLATE[self.bootstrap_version] if clearBtn else "",
+                glyphicon=self.glyphicon,
+                options=js_options
+            )
         )
 
     def _media(self):
@@ -333,4 +333,3 @@ class TimeWidget(PickerWidgetMixin, TimeInput):
         options['format'] = options.get('format', 'hh:ii')
 
         super(TimeWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
-

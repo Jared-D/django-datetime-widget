@@ -1,7 +1,6 @@
 __author__ = 'Alfredo Saglimbeni'
 
 from datetime import datetime
-import json
 import re
 import uuid
 
@@ -108,8 +107,8 @@ BOOTSTRAP_INPUT_TEMPLATE = {
        </div>
        <script type="text/javascript">
          document.addEventListener("DOMContentLoaded", function(event) {
-           $("#container_%(id)s").datetimepicker(%(options)s);
-          });
+           $("#container_%(id)s").datetimepicker({%(options)s});
+         });
        </script>
        """,
     3: """
@@ -120,7 +119,7 @@ BOOTSTRAP_INPUT_TEMPLATE = {
        </div>
        <script type="text/javascript">
            document.addEventListener("DOMContentLoaded", function(event) {
-              $("#container_%(id)s").datetimepicker(%(options)s).find('input').addClass("form-control");
+             $("#container_%(id)s").datetimepicker({%(options)s}).find('input').addClass("form-control");
            });
        </script>
        """
@@ -232,15 +231,16 @@ class PickerWidgetMixin(object):
         self.options.setdefault('autoclose', True)
 
         # Build javascript options out of python dictionary
-	options_list = {}
+        options_list = []
         for key, value in iter(self.options.items()):
-            options_list[key] = quote(key, value)
-	js_options = json.dumps(options_list)
-	
-        # Use provided id or generate hex to avoid collisions in document	    
-        id = final_attrs.get('id', uuid.uuid4().hex)	
+            options_list.append("%s: %s" % (key, quote(key, value)))
+        js_options = ",\n".join(options_list)
+
+        # Use provided id or generate hex to avoid collisions in document
+        id = final_attrs.get('id', uuid.uuid4().hex)
 
         clearBtn = quote('clearBtn', self.options.get('clearBtn', 'true')) == 'true'
+
         return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
                 % dict(

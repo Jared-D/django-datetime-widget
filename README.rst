@@ -249,6 +249,13 @@ If true, displays a "Clear" button at the rigth side of the input value.
 
 CHANGELOG
 ---------
+* 0.9.3V +unofficial changes
+
+  * Fixed month view is two months behind
+  * Fixed jquery defined @bottom
+  * Enable full month format
+  * FIX #57
+
 * 0.9.3V
   
   * FIX #48 

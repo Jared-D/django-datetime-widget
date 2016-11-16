@@ -154,6 +154,8 @@ The date format, combination of  P, hh, HH , ii, ss, dd, yy, yyyy.
  * hh : hour, 2 digits with leading zeros - 24-hour format
  * HH : hour, 2 digits with leading zeros - 12-hour format
  * dd : day of the month, 2 digits with leading zeros
+ * mm : month, 2 digits with leading zeros
+ * MM : month, full name e.g. January
  * yy : two digit representation of a year
  * yyyy : full numeric representation of a year, 4 digits
 
